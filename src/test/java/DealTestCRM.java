@@ -7,6 +7,7 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Feature;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import static Utils.RandomData.*;
@@ -17,7 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @ExtendWith(MyListener.class)
 public class DealTestCRM {
 
-    // @Test
+    @Test
     @Feature("Deals")
     @Tag("positiveTest")
     public void createQuickDeal() {
@@ -43,7 +44,7 @@ public class DealTestCRM {
 
     }
 
-    // @Test
+      @Test
     @Feature("Deals")
     @Tag("positiveTest")
     public void removeDealFromTable() {
@@ -63,7 +64,7 @@ public class DealTestCRM {
     }
 
 
-    // @Test
+      @Test
     @Feature("Deal")
     @Tag("positiveTest")
     public void bulkRemoveDealsFromTable() {
@@ -85,7 +86,7 @@ public class DealTestCRM {
 // Добавить проверку на удалённые таблицы
     }
 
-    // @Test
+     @Test
     @Feature("Deal")
     @Tag("positiveTest")
     public void changePipelineFromTableView() {
@@ -106,7 +107,7 @@ public class DealTestCRM {
 // Добавить проверку , переименовать метод с гет на чуз
     }
 
-    // @Test
+      @Test
     @Feature("Deal")
     @Tag("positiveTest")
     public void changeStageFromTableView() {
@@ -128,7 +129,7 @@ public class DealTestCRM {
     }
 
 
-    // @Test
+      @Test
     @Feature("Deal")
     @Tag("positiveTest")
     public void changePipelineAndStageFromTableView() {
