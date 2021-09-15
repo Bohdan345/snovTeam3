@@ -2,6 +2,7 @@ package Pages;
 
 import Elements.Button;
 import Elements.DropDown;
+import Elements.InputField;
 import Elements.Table;
 import com.codeborne.selenide.SelenideElement;
 
@@ -11,6 +12,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class TableViewPage {
     private static final SelenideElement modalDeleteBtn = $x("//button[text()='Delete']");
     private static final SelenideElement modalSaveBtn = $x("//button[text()='Save']");
+    private static final SelenideElement modalOKBtn = $x("//button[@data-test='modal-cancel']/following-sibling::button");
     private static final SelenideElement modalNameInput = $(".snovio-modal__window input");
     private static final SelenideElement deleteDealBtn = $(".delete");
     private static final SelenideElement tableDeal = $("#table");
@@ -24,6 +26,7 @@ public class TableViewPage {
     Button button = new Button();
     Table table = new Table();
     DropDown dropDown = new DropDown();
+    InputField inputField = new InputField();
 
     public TableViewPage clickCheckBoxTable(int rowNumber) {
         SelenideElement element = table.getColumn(tableDeal, rowNumber, 0);
@@ -31,11 +34,6 @@ public class TableViewPage {
         return this;
     }
 
-    public DealProfilePage clickDealLink(int rowNumber) {
-        SelenideElement element = table.getColumn(tableDeal, rowNumber, 1);
-        button.click(element);
-        return new DealProfilePage();
-    }
 
     public String getColumnText(int rowNumber, int columnNumber) {
         SelenideElement element = table.getColumn(tableDeal, rowNumber, columnNumber);
@@ -55,9 +53,19 @@ public class TableViewPage {
 
     }
 
+    public void setNameInputModalAndPressEnter(String text) {
+        inputField.setValueAndPressEnter(modalNameInput, text);
 
-    public TableViewPage clickConfirmModalButton() {
+    }
+
+
+    public TableViewPage clickDeleteModalButton() {
         button.click(modalDeleteBtn);
+        return this;
+    }
+
+    public TableViewPage clickOkModalButton() {
+        button.click(modalOKBtn);
         return this;
     }
 

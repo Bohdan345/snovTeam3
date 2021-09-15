@@ -5,6 +5,8 @@ import com.codeborne.selenide.SelenideElement;
 
 public class Table {
 
+
+
     public ElementsCollection getRow(SelenideElement table) {
         ElementsCollection rows = table.findAll("tr");
         return rows;

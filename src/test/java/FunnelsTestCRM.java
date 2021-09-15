@@ -1,6 +1,7 @@
 import Pages.CRMPage;
 import Pages.LoginPage;
 import Utils.MyListener;
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import static Utils.RandomData.getRandomInt;
 import static Utils.RandomData.getRandomName;
+import static com.codeborne.selenide.Condition.exactText;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -91,7 +93,7 @@ public class FunnelsTestCRM {
                 .backToCRMPage()
                 .waitInvisibleLoader();
 
-        assertThat(name, not(containsString(crmPage.getCurrentNameFunnel())));
+        assertThat(name, not(exactText(crmPage.getCurrentNameFunnel())));
 
     }
 

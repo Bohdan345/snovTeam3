@@ -63,7 +63,7 @@ public class CRMPage {
     }
 
     //  refactor
-    public String getDealFromStage(String dealName) {
+    public String getDealFromStageByName(String dealName) {
         return createdDeals.findBy(exactText(dealName)).getText();
     }
 

@@ -5,7 +5,6 @@ import Utils.MyListener;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Step;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -40,7 +39,7 @@ public class DealTestCRM {
                 .clickProspectDropDown()
                 .chooseProspectList(getRandomInt(0, 5))
                 .clickSaveQuickDealBtn();
-        assertThat(name, is(containsString(crm.getDealFromStage(name))));
+        assertThat(name, is(containsString(crm.getDealFromStageByName(name))));
 
 
     }
@@ -59,7 +58,7 @@ public class DealTestCRM {
                 .clickTableViewBtn()
                 .clickCheckBoxTable(3)
                 .clickDeleteButton()
-                .clickConfirmModalButton();
+                .clickDeleteModalButton();
 
         // добавить проверку на удалённую таблицу
     }
@@ -82,7 +81,7 @@ public class DealTestCRM {
                 .clickCheckBoxTable(4)
                 .clickCheckBoxTable(5)
                 .clickDeleteButton()
-                .clickConfirmModalButton();
+                .clickDeleteModalButton();
 
 // Добавить проверку на удалённые таблицы
     }
@@ -133,7 +132,7 @@ public class DealTestCRM {
     @Test
     @Feature("Deal")
     @Tag("positiveTest")
-    @Step("Изменение воронки и стейджа из таблицы")
+
     public void changePipelineAndStageFromTableView() {
         SelenideLogger.addListener("allure", new AllureSelenide());
         new LoginPage()
