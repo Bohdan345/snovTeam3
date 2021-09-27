@@ -149,8 +149,34 @@ public class DealTestCRM {
                 .clickModalStageDropDown()
                 .getStageFromModalDrop(2)
                 .clickSaveBtn();
+
+// Добавить assert , переименовать метод с гет на чуз
+    }
+
+
+
+
+    @Test
+    @Feature("Deal")
+    @Tag("positiveTest")
+
+    public void addCustomStage () {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+        new LoginPage()
+                .login();
+
+        TableViewPage crm = new CRMPage()
+                .goToCrm()
+                .waitLoader()
+                .clickTableViewBtn()
+                .clickCheckBoxTable(3)
+                .clickMoveBtn()
+                .clickModalPipelineDrop()
+                .getPipelineFromModalDrop(3)
+                .clickModalStageDropDown()
+                .getStageFromModalDrop(2)
+                .clickSaveBtn();
         Selenide.sleep(5000);
 // Добавить проверку , переименовать метод с гет на чуз
     }
-
 }

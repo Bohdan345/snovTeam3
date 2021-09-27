@@ -2,16 +2,18 @@ import Pages.CRMPage;
 import Pages.DealProfilePage;
 import Pages.LoginPage;
 import Pages.TableViewPage;
+import Utils.MyListener;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static Utils.RandomData.getRandomInt;
 import static com.codeborne.selenide.Condition.exactText;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-
+@ExtendWith(MyListener.class)
 public class TagTestCRM {
 
 

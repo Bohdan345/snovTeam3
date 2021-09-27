@@ -27,7 +27,8 @@ public class CRMPage {
     private static final SelenideElement pipelineModal = $x("//div[text()='Add new pipeline']");
     private static final SelenideElement modalNameInput = $(".snovio-modal__window input");
     private static final SelenideElement funnelName = $(".snovio-dropdown__name");
-    private static final SelenideElement modalConfirmButton = $(".snovio-btn--gray + button");
+
+    private static final SelenideElement createFunnelOkButton = $x("//button[@data-test='modal-cancel']//following-sibling::button");
 
     private static final ElementsCollection createdDeals = $$(".deal__name");
 
@@ -42,6 +43,7 @@ public class CRMPage {
     private static final SelenideElement funnelsList = $x("//div[@class='snovio-dropdown__drop']/ul[1]");
     private static final SelenideElement funnelBtnList = $x("//div[@class='snovio-dropdown__drop']/ul[2] ");
     private static final SelenideElement prospectsLists = $(".deal__dropdown ul");
+    private static final ElementsCollection activeDeal = $$(".dashboard .deal__link");
 
     BasePage basePage = new BasePage();
     Button button = new Button();
@@ -49,12 +51,17 @@ public class CRMPage {
     DropDown dropDown = new DropDown();
 
 
+    public int getActiveDeal() {
+
+        int dealNumber = activeDeal.size();
+
+        return dealNumber;
+    }
+
     public TableViewPage clickTableViewBtn() {
         button.click(tableViewButton);
         return new TableViewPage();
     }
-
-
 
 
     public CRMPage moveDealToDeleteZone() {
@@ -166,11 +173,11 @@ public class CRMPage {
     }
 
 
-    public CRMPage clickConfirmModalButton() {
-        button.click(modalConfirmButton);
+    public CRMPage confirmCreateFunnel() {
+        button.click(createFunnelOkButton);
         return this;
-    }
 
+    }
 
     public CRMPage getFunnel(int funnelNumber) {
         button.click(dropDown.getByIndex(funnelsList, funnelNumber));
@@ -215,7 +222,24 @@ public class CRMPage {
         return new CRMPage();
     }
 
+    public void checkActiveDeal(int funnelSize) {
 
+        for (int i = 0; i < funnelSize; i++) {
+
+            getFunnel(i);
+
+            if (getActiveDeal() > 0) {
+                System.out.println("Funnel " + " '" + getCurrentNameFunnel() +
+                        "' " + " have active deal");
+                clickFunnelDropDown();
+
+
+            } else {
+
+                break;
+            }
+        }
+    }
 }
 
 

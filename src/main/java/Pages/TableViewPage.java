@@ -34,6 +34,13 @@ public class TableViewPage {
         return this;
     }
 
+    public TimelinePage clickDealNameLink(int row) {
+
+        SelenideElement element = table.getColumn(tableDeal, row, 1);
+        button.click(element);
+        return new TimelinePage();
+    }
+
 
     public String getColumnText(int rowNumber, int columnNumber) {
         SelenideElement element = table.getColumn(tableDeal, rowNumber, columnNumber);

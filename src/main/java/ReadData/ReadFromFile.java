@@ -12,7 +12,7 @@ public class ReadFromFile {
         try {
 
 
-            InputStream input = new FileInputStream("C:\\snovTeam3Tests(BogTish)\\src\\main\\resources\\Config.properties");
+            InputStream input = new FileInputStream("C:\\snovTests\\src\\main\\resources\\Config.properties");
             Properties prop = new Properties();
             prop.load(input);
             browser = prop.getProperty(name);
