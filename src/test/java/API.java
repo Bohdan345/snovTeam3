@@ -6,7 +6,8 @@ import static io.restassured.RestAssured.given;
 
 public class API {
 
-    @Test
+
+
     public void createDeal() {
 
         for (int i = 0; i < 20; i++) {
