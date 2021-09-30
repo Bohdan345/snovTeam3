@@ -5,7 +5,6 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import static Pages.BasePage.destroy;
 @ExtendWith(MyListener.class)
 public class LoginTest {
 
@@ -17,7 +16,6 @@ public class LoginTest {
         new LoginPage()
 
                 .login();
-
 
 
     }

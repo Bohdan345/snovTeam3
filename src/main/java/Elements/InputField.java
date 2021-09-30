@@ -15,7 +15,8 @@ public class InputField {
     }
 
     public void setValueAndPressEnter(SelenideElement element, String text) {
-        element.shouldBe(visible).val(text).pressEnter();
+        element.shouldBe(visible).setValue(text).pressEnter();
+
     }
 
 

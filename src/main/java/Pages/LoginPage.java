@@ -9,13 +9,14 @@ import static com.codeborne.selenide.Selenide.$x;
 
 
 public class LoginPage {
-    SelenideElement signInWithGoogle = $x("//a[@class='google-sign-up google-register']");
-    SelenideElement loginField = $x("//input[@id='email']");
-    SelenideElement passwordField = $x("//input[@id='password']");
-    SelenideElement loginButton = $x("//button[@id='buttonFormLogin']");
-    SelenideElement loginHeaderText = $x("//a[text()='Forgot Your Password?']");
-    SelenideElement snovLoginLogo = $x("//img[@class='brand-img']");
-    SelenideElement snovLogo = $x("//div[@class = 'app-header__logo']");
+
+    private static final  SelenideElement signInWithGoogle = $x("//a[@class='google-sign-up google-register']");
+    private static final  SelenideElement loginField = $x("//input[@id='email']");
+    private static final  SelenideElement passwordField = $x("//input[@id='password']");
+    private static final  SelenideElement loginButton = $x("//button[@id='buttonFormLogin']");
+    private static final   SelenideElement loginHeaderText = $x("//a[text()='Forgot Your Password?']");
+    private static final    SelenideElement snovLoginLogo = $x("//img[@class='brand-img']");
+    private static final    SelenideElement snovLogo = $x("//div[@class = 'app-header__logo']");
 
     BasePage basePage = new BasePage();
 
@@ -41,7 +42,7 @@ public class LoginPage {
         loginButton.click();
     }
 
-     public void login() {
+    public void login() {
 
 
         goToLoginPage();

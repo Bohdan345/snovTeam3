@@ -17,7 +17,7 @@ public class FunnelEditPage {
     private static final SelenideElement funnelNameToolBar = $(".toolbar__name input");
     private static final SelenideElement backBtn = $("#backId");
     private static final SelenideElement addStageBox = $x("//div[@class='edit__columns']/div[1]//div[@class='stage__add-box']");
-    private static final SelenideElement addStageName = $x("//div[@class='stage'][2]//input[@class='stage__input']");
+    private static final SelenideElement    addStageName = $x("//div[@class='stage'][2]//input[@class='stage__input']");
 
 
     BasePage basePage = new BasePage();

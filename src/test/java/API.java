@@ -6,19 +6,19 @@ import static io.restassured.RestAssured.given;
 
 public class API {
 
-/*
+    @Test
     public void createDeal() {
 
-        for (int i = 0; i < 9999; i++) {
+        for (int i = 0; i < 20; i++) {
 
 
             given()
                     .contentType("application/x-www-form-urlencoded")
-                    .cookie("snov_io=HvQNTU5of5OV7fH92EWltNHMGR8SwFpLKWnKXvqq; Path=/; Secure; HttpOnly;")
+                    .cookie("snov_io=vbUJCZEv5Ccxf9e8sBBDjqITqZzJ45FJ0rLhXA2K; Path=/; Secure; HttpOnly;")
                     .body("name=ApiDeal " + getRandomInt(1, 1000000) + "&" +
-                            "funnelId=281&" +
-                            "funnelStatusId=1400&" +
-                            "responsibleUserId=39a36a10a577a4d74338579fd8fd414b6a16234d8fd91c040ec539ce9b667f&" +
+                            "funnelId=496&" +
+                            "funnelStatusId=2474&" +
+                            "responsibleUserId=2984075ec47feda47f53b6fc6a22922f36903e3aa07b2dc6ecae4c59deb95b&" +
                             "companyId&1111&" +
                             "dealStatus=active&" +
                             "peopleName=User&" +

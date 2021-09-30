@@ -23,8 +23,6 @@ public class CRMPage {
     private static final ElementsCollection nameDeals = $$("[data-index='0'].deal__name");
     private static final SelenideElement funnelDropDown = $(".toolbar__funnels");
     private static final ElementsCollection funnelList = $$x(".//ul[@class= 'snovio-dropdown__list']/li");
-    private static final SelenideElement newPipelineButton = $x("//span[text()='New pipeline']");
-    private static final SelenideElement pipelineModal = $x("//div[text()='Add new pipeline']");
     private static final SelenideElement modalNameInput = $(".snovio-modal__window input");
     private static final SelenideElement funnelName = $(".snovio-dropdown__name");
 
@@ -32,7 +30,7 @@ public class CRMPage {
 
     private static final ElementsCollection createdDeals = $$(".deal__name");
 
-    private static final SelenideElement dealTitle = $(".deal-head__name");
+
     private static final SelenideElement checkIcon = $(".icon-small");
     private static final SelenideElement toolBarSettings = $(".toolbar__settings");
     private static final SelenideElement errorsSnovio = $(".snovio-input__error");
@@ -43,12 +41,22 @@ public class CRMPage {
     private static final SelenideElement funnelsList = $x("//div[@class='snovio-dropdown__drop']/ul[1]");
     private static final SelenideElement funnelBtnList = $x("//div[@class='snovio-dropdown__drop']/ul[2] ");
     private static final SelenideElement prospectsLists = $(".deal__dropdown ul");
+
     private static final ElementsCollection activeDeal = $$(".dashboard .deal__link");
+    private static final SelenideElement createDealBtn = $(".toolbar__btn");
 
     BasePage basePage = new BasePage();
     Button button = new Button();
     InputField inputField = new InputField();
     DropDown dropDown = new DropDown();
+
+
+
+
+    public  DealProfilePage clickCreateDeal(){
+        button.click(createDealBtn);
+        return  new DealProfilePage();
+    }
 
 
     public int getActiveDeal() {
@@ -185,7 +193,8 @@ public class CRMPage {
     }
 
     public int getFunnelListSize() {
-        return funnelList.size();
+        int size = funnelList.size();
+        return size;
     }
 
     public CRMPage getLastFunnel() {
