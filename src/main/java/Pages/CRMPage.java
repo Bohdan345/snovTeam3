@@ -128,7 +128,7 @@ public class CRMPage {
 
     //refactor
     public CRMPage chooseProspectList(int listIndex) {
-        button.click(dropDown.getByIndex(prospectsLists, listIndex));
+        button.clickVisible(dropDown.getByIndex(prospectsLists, listIndex));
         return this;
 
     }

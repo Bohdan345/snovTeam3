@@ -17,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class TagTestCRM {
 
 
-    @Test
+
 
     public void createTag() {
         SelenideLogger.addListener("allure", new AllureSelenide());
@@ -42,7 +42,7 @@ public class TagTestCRM {
     }
 
 
-    @Test
+
 
     public void deleteTag() {
         new LoginPage()
@@ -53,7 +53,7 @@ public class TagTestCRM {
                 .goToCrm();
     }
 
-    @Test
+
 
     public void addTagToDeal() {
         new LoginPage()
