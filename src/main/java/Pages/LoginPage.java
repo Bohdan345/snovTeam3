@@ -10,13 +10,13 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class LoginPage {
 
-    private static final  SelenideElement signInWithGoogle = $x("//a[@class='google-sign-up google-register']");
-    private static final  SelenideElement loginField = $x("//input[@id='email']");
-    private static final  SelenideElement passwordField = $x("//input[@id='password']");
-    private static final  SelenideElement loginButton = $x("//button[@id='buttonFormLogin']");
-    private static final   SelenideElement loginHeaderText = $x("//a[text()='Forgot Your Password?']");
-    private static final    SelenideElement snovLoginLogo = $x("//img[@class='brand-img']");
-    private static final    SelenideElement snovLogo = $x("//div[@class = 'app-header__logo']");
+    private static final SelenideElement signInWithGoogle = $x("//a[@class='google-sign-up google-register']");
+    private static final SelenideElement loginField = $x("//input[@id='email']");
+    private static final SelenideElement passwordField = $x("//input[@id='password']");
+    private static final SelenideElement loginButton = $x("//button[@id='buttonFormLogin']");
+    private static final SelenideElement loginHeaderText = $x("//a[text()='Forgot Your Password?']");
+    private static final SelenideElement snovLoginLogo = $x("//img[@class='brand-img']");
+    private static final SelenideElement snovLogo = $x("//div[@class = 'app-header__logo']");
 
     BasePage basePage = new BasePage();
 
@@ -53,7 +53,7 @@ public class LoginPage {
 
         pressLoginButton();
 
-        snovLogo.shouldBe(Condition.visible);
+
 
 
     }

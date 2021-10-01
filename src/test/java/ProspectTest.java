@@ -1,6 +1,9 @@
 import Pages.LoginPage;
 import Pages.ProspectPage;
+import Utils.MyListener;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+@ExtendWith(MyListener.class)
 public class ProspectTest {
 
 
