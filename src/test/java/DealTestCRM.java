@@ -1,4 +1,7 @@
-import Pages.*;
+import Pages.CRMPage;
+import Pages.DealProfilePage;
+import Pages.LoginPage;
+import Pages.TimelinePage;
 import Utils.MyListener;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
@@ -9,7 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import static Utils.RandomData.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @ExtendWith(MyListener.class)
@@ -38,15 +42,34 @@ public class DealTestCRM {
         TimelinePage tlp = new TimelinePage()
                 .clickRefreshTimelineBtn();
 
-  assertThat( tlp.getEventText() ,is(equalTo("Deal created: "+name)));
+        assertThat(tlp.getEventText(), is(equalTo("Deal created: " + name)));
 
 
         Selenide.sleep(3000);
 
     }
+/*
+    @Test
+    @Feature("Deals")
+    @Tag("positive Test")
+    public void deleteDeal() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+        String name = getRandomName();
+        new LoginPage()
+                .login();
+
+        CRMPage crmPage = new CRMPage()
+                .goToCrm()
+                .waitLoader()
+                .clickFunnelDropDown();
+        int funnelSize = crmPage.getFunnelListSize();
+        crmPage.getFunnelWithActiveDeals(funnelSize);
+        crmPage.getFirstDealFromStage(0);
 
 
-
+        Selenide.sleep(3000);
+    }
+*/
 
     @Test
     @Feature("Deals")
@@ -70,7 +93,7 @@ public class DealTestCRM {
                 .chooseProspectList(getRandomInt(0, 5))
                 .clickSaveQuickDealBtn();
 
-        assertThat(crm.getDealFromStageByName(name),equalTo(name));
+        assertThat(crm.getDealName(name, 0), equalTo(name));
 
 
     }

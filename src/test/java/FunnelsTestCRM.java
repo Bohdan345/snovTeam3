@@ -56,7 +56,7 @@ public class FunnelsTestCRM {
                 .clickFunnelDropDown();
         int funnelSize = crmPage.getFunnelListSize();
 
-        crmPage.checkActiveDeal(funnelSize);
+        crmPage.getFunnelWithoutActiveDeals(funnelSize);
         String name = crmPage.getCurrentNameFunnel();
 
 
@@ -71,6 +71,23 @@ public class FunnelsTestCRM {
 
     }
 
+    @Test
+    @Feature("Funnel")
+    @Tag("positive")
+    void checkAllPipeline() {
+
+        SelenideLogger.addListener("allure", new AllureSelenide());
+
+        new LoginPage()
+                .login();
+
+        CRMPage crmPage = new CRMPage()
+                .goToCrm()
+                .clickFunnelDropDown()
+                .clickAllPipelineBtn()
+                .waitLoader();
+        assertThat(crmPage.getAllPipelinesDealCounterValue(), is(notNullValue()));
+    }
 
     @Test
     @Feature("Funnel")

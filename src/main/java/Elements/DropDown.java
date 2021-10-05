@@ -7,7 +7,7 @@ import static com.codeborne.selenide.Condition.exactText;
 
 public class DropDown {
 
-    public ElementsCollection getListItems(SelenideElement dropDownList) {
+    private ElementsCollection getListItems(SelenideElement dropDownList) {
         ElementsCollection list = dropDownList.findAll("li");
         return list;
     }

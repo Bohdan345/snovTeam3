@@ -39,11 +39,15 @@ public class CRMPage {
     private static final SelenideElement tableViewButton = $x(" //div[@class ='toolbar__tabs']/a[2]");
 
     private static final SelenideElement funnelsList = $x("//div[@class='snovio-dropdown__drop']/ul[1]");
+    private static final SelenideElement funnelsDropDownBtns = $(".snovio-dropdown__list--sticky");
     private static final SelenideElement funnelBtnList = $x("//div[@class='snovio-dropdown__drop']/ul[2] ");
     private static final SelenideElement prospectsLists = $(".deal__dropdown ul");
 
     private static final ElementsCollection activeDeal = $$(".dashboard .deal__link");
     private static final SelenideElement createDealBtn = $(".toolbar__btn");
+    private static final SelenideElement dashboardColumns = $(".dashboard__columns");
+    private static final SelenideElement allPiplineDealCounter = $(".toolbar__info-counter");
+
 
     BasePage basePage = new BasePage();
     Button button = new Button();
@@ -53,11 +57,54 @@ public class CRMPage {
 
 
 
-    public  DealProfilePage clickCreateDeal(){
-        button.click(createDealBtn);
-        return  new DealProfilePage();
+
+
+
+    /**
+     * Получаем список колонок стейджей
+     */
+    private SelenideElement getStageColumns(int stageIndex) {
+        ElementsCollection stages = dashboardColumns.findAll("td");
+        return stages.get(stageIndex);
     }
 
+
+    public DealProfilePage getDealFromStage(int stageIndex, int dealIndex) {
+        ElementsCollection deals = getStageColumns(stageIndex).findAll(".deal");
+
+        button.click(deals.get(dealIndex));
+        return new DealProfilePage();
+
+    }
+
+    public DealProfilePage getFirstDealFromStage(int stageIndex) {
+        ElementsCollection deals = getStageColumns(stageIndex).findAll(".deal");
+
+        button.clickVisible(deals.get(1));
+        return new DealProfilePage();
+    }
+
+    public String getAllPipelinesDealCounterValue() {
+        return allPiplineDealCounter.getText();
+    }
+
+    public String getDealName(String name, int stageIndex) {
+        ElementsCollection deals = getStageColumns(stageIndex).findAll(".deal .deal__name");
+        return deals.find(exactText(name)).getText();
+
+    }//
+
+
+    public DealProfilePage clickCreateDeal() {
+        button.click(createDealBtn);
+        return new DealProfilePage();
+    }
+
+    public CRMPage clickAllPipelineBtn() {
+        button.click(dropDown.getByIndex(funnelsDropDownBtns, 1));
+
+        return this;
+    }
 
     public int getActiveDeal() {
 
@@ -78,9 +125,7 @@ public class CRMPage {
     }
 
     //  refactor
-    public String getDealFromStageByName(String dealName) {
-        return createdDeals.findBy(exactText(dealName)).getText();
-    }
+
 
     public CRMPage clickQuickDealBtn() {
         button.click(quickAddButton);
@@ -231,7 +276,7 @@ public class CRMPage {
         return new CRMPage();
     }
 
-    public void checkActiveDeal(int funnelSize) {
+    public void getFunnelWithoutActiveDeals(int funnelSize) {
 
         for (int i = 0; i < funnelSize; i++) {
 
@@ -249,6 +294,29 @@ public class CRMPage {
             }
         }
     }
+
+    public void getFunnelWithActiveDeals(int funnelSize) {
+
+        for (int i = 0; i < funnelSize; i++) {
+
+            getFunnel(i);
+            waitLoader();
+
+            if (getActiveDeal() <= 0) {
+                System.out.println("Funnel " + " '" + getCurrentNameFunnel() +
+                        "' " + " have not active deal");
+
+                clickFunnelDropDown();
+
+
+            } else {
+
+                break;
+            }
+        }
+    }
+
+
 }
 
 

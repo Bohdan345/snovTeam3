@@ -26,12 +26,34 @@ public class DealProfilePage {
     private static final SelenideElement prospectEmailDropDown = $(" .prospect__email .search__list");
     private static final SelenideElement searchEmailLoader = $(".search__label--email svg");
     private static final SelenideElement saveDealBtn = $(".deal-info__btn-group .snovio-btn--save");
+    private static final SelenideElement contextBtn = $x("//div[@tabindex='2']");
+    private static final SelenideElement contextDropDownList = $x("//div[@tabindex='2']//ul");
+    private static final SelenideElement change = $x("//div[@tabindex='2']//ul");
+
 
     BasePage basePage = new BasePage();
     Button button = new Button();
     Table table = new Table();
     DropDown dropDown = new DropDown();
     InputField inputField = new InputField();
+
+
+    public DealProfilePage clickChangeDropDown() {
+
+
+        return this;
+    }
+
+
+    public CRMPage clickDeleteDealBtn() {
+        button.click(dropDown.getByIndex(contextDropDownList, 1));
+        return new CRMPage();
+    }
+
+    public DealProfilePage clickContexBtn() {
+        button.click(contextBtn);
+        return this;
+    }
 
 
     public DealProfilePage clickSaveBtn() {
@@ -101,7 +123,7 @@ public class DealProfilePage {
         return new DealProfilePage();
     }
 
-    public DealProfilePage clisckAddTagBtn() {
+    public DealProfilePage clickAddTagBtn() {
         button.click(addTagBtn);
         return this;
     }
