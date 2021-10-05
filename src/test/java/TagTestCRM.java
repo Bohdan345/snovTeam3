@@ -32,7 +32,7 @@ public class TagTestCRM {
                 .clickTableViewBtn();
         DealProfilePage dealProfilePage = new DealProfilePage()
                 .clickDealLink(2)
-                .clisckAddTagBtn();
+                .clickAddTagBtn();
         Selenide.sleep(2000);
         crmPage.setNameInputModalAndPressEnter(name);
         Selenide.sleep(2000);
