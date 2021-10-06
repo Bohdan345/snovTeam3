@@ -41,7 +41,7 @@ public class FunnelsTestCRM {
 
     }
 
-    /*
+
     @Test
     @Feature("Funnel")
     @Tag("positive")
@@ -71,7 +71,7 @@ public class FunnelsTestCRM {
 
 
     }
-*/
+
     @Test
     @Feature("Funnel")
     @Tag("positive")
