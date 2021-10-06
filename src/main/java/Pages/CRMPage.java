@@ -281,7 +281,7 @@ public class CRMPage {
         for (int i = 0; i < funnelSize; i++) {
 
             getFunnel(i);
-
+            waitLoader();
             if (getActiveDeal() > 0) {
                 System.out.println("Funnel " + " '" + getCurrentNameFunnel() +
                         "' " + " have active deal");
