@@ -12,8 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import static Utils.RandomData.*;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @ExtendWith(MyListener.class)
@@ -48,13 +47,13 @@ public class DealTestCRM {
         Selenide.sleep(3000);
 
     }
-/*
+
+
     @Test
     @Feature("Deals")
     @Tag("positive Test")
     public void deleteDeal() {
         SelenideLogger.addListener("allure", new AllureSelenide());
-        String name = getRandomName();
         new LoginPage()
                 .login();
 
@@ -62,14 +61,23 @@ public class DealTestCRM {
                 .goToCrm()
                 .waitLoader()
                 .clickFunnelDropDown();
-        int funnelSize = crmPage.getFunnelListSize();
-        crmPage.getFunnelWithActiveDeals(funnelSize);
-        crmPage.getFirstDealFromStage(0);
+
+        crmPage.getFunnelWithActiveDeals(crmPage.getFunnelListSize());
+
+        int dealNumbers = crmPage.getDealCounterValue();
+        crmPage.clickActiveDeal();
 
 
-        Selenide.sleep(3000);
+        new DealProfilePage()
+                .clickDealContextBtn()
+                .clickDeleteDealBtn()
+                .clickDeleteModalButton();
+        crmPage.waitLoader();
+
+        assertThat(crmPage.getDealCounterValue(), not(dealNumbers));
+
     }
-*/
+
 
     @Test
     @Feature("Deals")

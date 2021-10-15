@@ -87,7 +87,7 @@ public class FunnelsTestCRM {
                 .clickFunnelDropDown()
                 .clickAllPipelineBtn()
                 .waitLoader();
-        assertThat(crmPage.getAllPipelinesDealCounterValue(), is(notNullValue()));
+        assertThat(crmPage.getDealCounterValue(), is(notNullValue()));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class FunnelsTestCRM {
         crmPage.clickToolBarBtn()
                 .setFunnelNameToolBar("Rename" + getRandomInt(1, 100))
                 .backToCRMPage()
-                .waitInvisibleLoader();
+                .waitLoader();
         assertThat(crmPage.getCurrentNameFunnel(), not(equalTo(name)));
 
 

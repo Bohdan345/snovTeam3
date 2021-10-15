@@ -5,6 +5,7 @@ import Elements.DropDown;
 import Elements.InputField;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -46,7 +47,7 @@ public class CRMPage {
     private static final ElementsCollection activeDeal = $$(".dashboard .deal__link");
     private static final SelenideElement createDealBtn = $(".toolbar__btn");
     private static final SelenideElement dashboardColumns = $(".dashboard__columns");
-    private static final SelenideElement allPiplineDealCounter = $(".toolbar__info-counter");
+    private static final SelenideElement dealCounter = $(".toolbar__info-counter");
 
 
     BasePage basePage = new BasePage();
@@ -55,22 +56,53 @@ public class CRMPage {
     DropDown dropDown = new DropDown();
 
 
-
-
-
-
-
     /**
-     * Получаем список колонок стейджей
+     * Получаем массив стейджей
      */
-    private SelenideElement getStageColumns(int stageIndex) {
+    private ElementsCollection getStageColumns() {
+
         ElementsCollection stages = dashboardColumns.findAll("td");
-        return stages.get(stageIndex);
+        return stages;
     }
 
 
+    /**
+     * Получаем один стейдж по индексу
+     */
+    @Step()
+    private SelenideElement getStageColumn(int stageIndex) {
+
+        return getStageColumns().get(stageIndex);
+    }
+
+
+    @Step("Проходим по стейджам  и ищем сделки в стейджах ")
+    private SelenideElement getActiveDealsInStages(int dealIndex) {
+
+
+        SelenideElement element = null;
+
+
+        for (int i = 0; i < getStageColumns().size(); i++) {
+
+            ElementsCollection deals = getStageColumns().get(i).findAll(".deal__name");
+            if (deals.size() > 0) {
+                element = deals.get(dealIndex);
+                break;
+            }
+
+        }
+        return element;
+    }
+
+    @Step("Нажимаем на активную  сделку в стейдже ")
+    public DealProfilePage clickActiveDeal() {
+        button.click(getActiveDealsInStages(0));
+        return new DealProfilePage();
+    }
+
     public DealProfilePage getDealFromStage(int stageIndex, int dealIndex) {
-        ElementsCollection deals = getStageColumns(stageIndex).findAll(".deal");
+        ElementsCollection deals = getStageColumns().get(stageIndex).findAll(".deal__name");
 
         button.click(deals.get(dealIndex));
         return new DealProfilePage();
@@ -78,21 +110,28 @@ public class CRMPage {
     }
 
     public DealProfilePage getFirstDealFromStage(int stageIndex) {
-        ElementsCollection deals = getStageColumns(stageIndex).findAll(".deal");
+        ElementsCollection deals = getStageColumns().get(stageIndex).findAll(".deal");
 
         button.clickVisible(deals.get(1));
         return new DealProfilePage();
     }
 
-    public String getAllPipelinesDealCounterValue() {
-        return allPiplineDealCounter.getText();
+    public int getDealCounterValue() {
+        String dealNumber;
+        String counterText = dealCounter.shouldBe(visible).getText();
+        if (counterText.equals("No deals")) {
+            dealNumber = "0";
+        } else {
+            dealNumber = counterText.replaceAll("\\p{L}|\\s", "");
+        }
+        return Integer.parseInt(dealNumber);
     }
 
     public String getDealName(String name, int stageIndex) {
-        ElementsCollection deals = getStageColumns(stageIndex).findAll(".deal .deal__name");
+        ElementsCollection deals = getStageColumns().get(stageIndex).findAll(".deal .deal__name");
         return deals.find(exactText(name)).getText();
 
-    }//
+    }
 
 
     public DealProfilePage clickCreateDeal() {
@@ -106,7 +145,7 @@ public class CRMPage {
         return this;
     }
 
-    public int getActiveDeal() {
+    public int getActiveDealNumber() {
 
         int dealNumber = activeDeal.size();
 
@@ -117,15 +156,6 @@ public class CRMPage {
         button.click(tableViewButton);
         return new TableViewPage();
     }
-
-
-    public CRMPage moveDealToDeleteZone() {
-        basePage.dragAndDrop(leadInFirstDeal, deleteZone);
-        return this;
-    }
-
-    //  refactor
-
 
     public CRMPage clickQuickDealBtn() {
         button.click(quickAddButton);
@@ -164,14 +194,11 @@ public class CRMPage {
         return this;
     }
 
-    // refactor
     public CRMPage clickProspectDropDown() {
         button.click(prospectsListDropDown);
         return this;
     }
 
-
-    //refactor
     public CRMPage chooseProspectList(int listIndex) {
         button.clickVisible(dropDown.getByIndex(prospectsLists, listIndex));
         return this;
@@ -183,17 +210,16 @@ public class CRMPage {
         return this;
     }
 
-
+    //not use
     public String getErrorsText() {
         String text = errorsSnovio.getText();
         return text;
     }
 
-    public int getFunnelNumber() {
+    public int getFunnelNumbers() {
         int size = funnelList.size();
         return size;
     }
-
 
     public CRMPage clickFunnelDropDown() {
 
@@ -211,7 +237,6 @@ public class CRMPage {
         checkIcon.shouldBe(visible);
         return this;
     }
-
 
     public CRMPage clickNewPiplineButton() {
         button.click(dropDown.getByIndex(funnelBtnList, 2));
@@ -247,7 +272,7 @@ public class CRMPage {
         return this;
     }
 
-
+    @Step("Ожидание прогрузки лоадера ")
     public CRMPage waitLoader() {
         crmLoader.shouldNotBe(visible);
         return this;
@@ -258,31 +283,28 @@ public class CRMPage {
         return funnelName.shouldBe(visible).getText();
     }
 
-
-    public CRMPage waitInvisibleLoader() {
-        crmLoader.shouldNotBe(visible);
-        return this;
-    }
-
+    @Step("Нажатие на кнопку настройки воронки ")
     public FunnelEditPage clickToolBarBtn() {
         toolBarSettings.shouldBe(enabled).click();
         return new FunnelEditPage();
 
     }
 
+    @Step("Переход на CRM")
     public CRMPage goToCrm() {
         basePage.startBrowser("https://preprod.snov.io/crm");
         crmLoader.shouldNotBe(visible);
         return new CRMPage();
     }
 
+    @Step("Получение воронки без активных сделок")
     public void getFunnelWithoutActiveDeals(int funnelSize) {
 
         for (int i = 0; i < funnelSize; i++) {
 
             getFunnel(i);
             waitLoader();
-            if (getActiveDeal() > 0) {
+            if (getActiveDealNumber() > 0) {
                 System.out.println("Funnel " + " '" + getCurrentNameFunnel() +
                         "' " + " have active deal");
                 clickFunnelDropDown();
@@ -295,14 +317,15 @@ public class CRMPage {
         }
     }
 
-    public void getFunnelWithActiveDeals(int funnelSize) {
+    @Step("Получение воронки с активными сделками")
+    public CRMPage getFunnelWithActiveDeals(int funnelSize) {
 
         for (int i = 0; i < funnelSize; i++) {
 
             getFunnel(i);
             waitLoader();
 
-            if (getActiveDeal() <= 0) {
+            if (getActiveDealNumber() <= 0) {
                 System.out.println("Funnel " + " '" + getCurrentNameFunnel() +
                         "' " + " have not active deal");
 
@@ -314,9 +337,12 @@ public class CRMPage {
                 break;
             }
         }
+        return this;
     }
 
 
 }
+
+
 
 

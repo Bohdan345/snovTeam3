@@ -8,6 +8,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
+import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -26,9 +27,12 @@ public class DealProfilePage {
     private static final SelenideElement prospectEmailDropDown = $(" .prospect__email .search__list");
     private static final SelenideElement searchEmailLoader = $(".search__label--email svg");
     private static final SelenideElement saveDealBtn = $(".deal-info__btn-group .snovio-btn--save");
-    private static final SelenideElement contextBtn = $x("//div[@tabindex='2']");
-    private static final SelenideElement contextDropDownList = $x("//div[@tabindex='2']//ul");
+    private static final SelenideElement dealContextBtn = $x("//div[@tabindex='2']/div[1]");
+    private static final SelenideElement dealContextDropDownList = $x("//div[@tabindex='2']//ul");
     private static final SelenideElement change = $x("//div[@tabindex='2']//ul");
+    private static final SelenideElement modalDeleteButton = $x("//button[text()='Delete']");
+    private static final SelenideElement modalConfirmButton = $(".snovio-btn--gray + button");
+    private static final SelenideElement modalNameInput = $(".snovio-modal__window input");
 
 
     BasePage basePage = new BasePage();
@@ -44,14 +48,29 @@ public class DealProfilePage {
         return this;
     }
 
-
-    public CRMPage clickDeleteDealBtn() {
-        button.click(dropDown.getByIndex(contextDropDownList, 1));
+    public CRMPage clickDeleteModalButton() {
+        button.click(modalDeleteButton);
         return new CRMPage();
     }
 
-    public DealProfilePage clickContexBtn() {
-        button.click(contextBtn);
+    public void setNameInputModal(String text) {
+        modalNameInput.val(text);
+
+    }
+
+    public CRMPage clickConfirmModalButton() {
+        modalConfirmButton.shouldBe(enabled).click();
+        return new CRMPage();
+    }
+
+
+    public DealProfilePage clickDeleteDealBtn() {
+        button.click(dropDown.getByIndex(dealContextDropDownList, 1));
+        return this;
+    }
+
+    public DealProfilePage clickDealContextBtn() {
+        button.click(dealContextBtn);
         return this;
     }
 
@@ -123,12 +142,13 @@ public class DealProfilePage {
         return new DealProfilePage();
     }
 
+    //not used
     public DealProfilePage clickAddTagBtn() {
         button.click(addTagBtn);
         return this;
     }
 
-
+    //not used
     public DealProfilePage getDealTagName(String name) {
         dropDown.getByName(dealsTag, name);
         return this;
